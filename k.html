@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.2/dist/echarts.min.js"></script>
+</head>
+
+<body>
+  <div id="main" style="width: 800px;height:600px;"></div>
+  <script>
+    // 假设的人口数据，实际应用中需替换为真实数据
+    const populationData = {
+      "北京市": 1000,
+      "天津市": 800,
+      "河北省": 600,
+      //... 其他省份的人口数据
+    };
+    // 初始化 echarts 实例
+    const myChart = echarts.init(document.getElementById('main'));
+    // 配置项
+    const option = {
+      visualMap: {
+        min: 0,
+        max: Math.max(...Object.values(populationData)),
+        inRange: {
+          color: ['green', 'orange', 'red']
+        },
+        text: ['人口最少', '人口较多', '人口最多'],
+        calculable: true
+      },
+      series: [
+        {
+          type: 'map',
+          map: 'china',
+          data: Object.entries(populationData).map(item => ({ name: item[0], value: item[1] }))
+        }
+      ]
+    };
+    // 使用配置项显示图表
+    myChart.setOption(option);
+  </script>
+</body>
+
+</html>
